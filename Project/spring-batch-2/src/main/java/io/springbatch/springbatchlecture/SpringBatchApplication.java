@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
     1. SimpleBatchConfiguration
     2. BatchConfigurerConfiguration
         2-1 BasicBatchConfigurer
-        2-2 JpaBatchConfigurer 
+        2-2 JpaBatchConfigurer
     3. BatchAutoConfiguration
         : Job을 수행하는 빈을 생성하기 때문에 가장 마지막
 
