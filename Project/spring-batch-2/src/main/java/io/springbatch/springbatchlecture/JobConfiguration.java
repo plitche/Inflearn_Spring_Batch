@@ -12,23 +12,27 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-// @Configuration
-@RequiredArgsConstructor
-public class DBJobConfiguration {
+@Configuration
+@RequiredArgsConstructor // 의존성 주입
+public class JobConfiguration {
+
+    /*
+    하나의 Job을 구성했다.
+    정의한 Job은 객체안에 포함이 되어있다.
+     */
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    // @Bean
+    @Bean
     public Job job() {
         return jobBuilderFactory.get("job")
                 .start(step1())
                 .next(step2())
                 .build();
-
     }
 
-    // @Bean
+    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
@@ -37,11 +41,12 @@ public class DBJobConfiguration {
                         System.out.println("step1 was executed");
                         return RepeatStatus.FINISHED;
                     }
-                })
-                .build();
+                }).build();
+
     }
 
-    private Step step2() {
+    @Bean
+    public Step step2() {
         return stepBuilderFactory.get("step2")
                 .tasklet(new Tasklet() {
                     @Override
@@ -49,7 +54,9 @@ public class DBJobConfiguration {
                         System.out.println("step2 was executed");
                         return RepeatStatus.FINISHED;
                     }
-                })
-                .build();
+                }).build();
+
     }
+
+
 }
