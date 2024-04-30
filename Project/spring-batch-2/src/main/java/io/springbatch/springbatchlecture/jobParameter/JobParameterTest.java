@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture.JobInstance;
+package io.springbatch.springbatchlecture.jobParameter;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -9,20 +9,25 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
-public class JobRunner implements ApplicationRunner {
+import java.util.Date;
 
-    @Autowired // 이미 Bean으로 생성된 객체이기 때문에 의존성 주입을 받아 사용
+@Component
+public class JobParameterTest implements ApplicationRunner {
+
+    @Autowired
     private JobLauncher jobLauncher;
 
     @Autowired
     private Job job;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception { // Spring boot가 초기화되고 완료가되면 가장 먼저 호출
+    public void run(ApplicationArguments args) throws Exception {
+
         JobParameters jobParameters = new JobParametersBuilder()
                 .addString("name", "user1")
-                // .addString("name", "user2")
+                .addLong("seq", 2L)
+                .addDate("data", new Date())
+                .addDouble("age", 16.5)
                 .toJobParameters();
 
         jobLauncher.run(job, jobParameters);
