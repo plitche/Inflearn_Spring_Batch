@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture.jobParameter;
+package io.springbatch.springbatchlecture.jobExecution;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -15,14 +15,14 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-// @Configuration
+@Configuration
 @RequiredArgsConstructor
-public class JobParameterConfiguration {
+public class JobExecutionConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    // @Bean
+    @Bean
     public Job batchJob() {
         return jobBuilderFactory.get("job")
                 .start(step1())
@@ -30,37 +30,23 @@ public class JobParameterConfiguration {
                 .build();
     }
 
-//    @Bean
+    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        JobParameters jobParameters = stepContribution.getStepExecution().getJobExecution().getJobParameters();
-                        jobParameters.getString("name");
-                        jobParameters.getLong("seq");
-                        jobParameters.getDate("date");
-                        jobParameters.getDouble("age");
-
-                        Map<String, Object> jobParameters1 = chunkContext.getStepContext().getJobParameters();
-                        jobParameters1.get("name");
-                        jobParameters1.get("seq");
-                        jobParameters1.get("date");
-                        jobParameters1.get("age");
-
                         return RepeatStatus.FINISHED;
                     }
                 }).build();
     }
 
-//    @Bean
+    @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        return RepeatStatus.FINISHED;
-                    }
+                .tasklet((stepContribution, chunkContext) -> {
+                    // throw new RuntimeException("step2 has failed");
+                    return RepeatStatus.FINISHED;
                 }).build();
     }
 
