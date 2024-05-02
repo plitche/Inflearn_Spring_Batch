@@ -1,8 +1,7 @@
-package io.springbatch.springbatchlecture.jobExecution;
+package io.springbatch.springbatchlecture.step;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -13,16 +12,14 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Map;
-
-//@Configuration
+@Configuration
 @RequiredArgsConstructor
-public class JobExecutionConfiguration {
+public class JobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-//    @Bean
+    @Bean
     public Job batchJob() {
         return jobBuilderFactory.get("job")
                 .start(step1())
@@ -30,7 +27,7 @@ public class JobExecutionConfiguration {
                 .build();
     }
 
-//    @Bean
+    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
@@ -41,13 +38,10 @@ public class JobExecutionConfiguration {
                 }).build();
     }
 
-//    @Bean
+    @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
-                .tasklet((stepContribution, chunkContext) -> {
-                    // throw new RuntimeException("step2 has failed");
-                    return RepeatStatus.FINISHED;
-                }).build();
+                .tasklet(new CustomTasklet()).build();
     }
 
 
