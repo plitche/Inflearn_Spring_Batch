@@ -1,6 +1,6 @@
 * ExecutionContext
 	1. 기본 개념
-		* 프레임워크에서 우지 및 관리하는 키/값으로 된 컬렉션으로 StepExecution 또는 JobExecution 객체의 상태를 저장하는 공유 객체
+		* 프레임워크에서 유지 및 관리하는 키/값으로 된 컬렉션으로 StepExecution 또는 JobExecution 객체의 상태를 저장하는 공유 객체
 		* DB에 직렬화 한 값으로 젖아된 - {"key" : "value"}
 		* 공유 범위
 		    - Step 범위 - 각 Step의 StepExecution에 저장되며 Step 간 서로 공유 안됨
