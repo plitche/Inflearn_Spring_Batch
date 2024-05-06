@@ -12,7 +12,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+// @Configuration
 @RequiredArgsConstructor
 public class ExecutionContextConfiguration {
 
@@ -24,7 +24,7 @@ public class ExecutionContextConfiguration {
     private final ExecutionContextTasklet3 executionContextTasklet3;
     private final ExecutionContextTasklet4 executionContextTasklet4;
 
-    @Bean
+    // @Bean
     public Job batchJob() {
         return jobBuilderFactory.get("job")
                 .start(step1())
@@ -34,25 +34,25 @@ public class ExecutionContextConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(executionContextTasklet1).build();
     }
 
-    @Bean
+    // @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
                 .tasklet(executionContextTasklet2).build();
     }
 
-    @Bean
+    // @Bean
     public Step step3() {
         return stepBuilderFactory.get("step3")
                 .tasklet(executionContextTasklet3).build();
     }
 
-    @Bean
+    // @Bean
     public Step step4() {
         return stepBuilderFactory.get("step4")
                 .tasklet(executionContextTasklet3).build();
