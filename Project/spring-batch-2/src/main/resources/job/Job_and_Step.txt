@@ -1,0 +1,15 @@
+* Job and Step
+	1. 실행적인 관점
+	    * Job을 실행하기 위한 구체적인 기능들
+	    * Spring Batch 가 제공하는 api의 종류
+
+    2. 목록
+        * JobBuilderFactory & JobBuilder
+            - 하위 Builder들에 대해 학습
+            - 각각의 Builder들이 어떤 job을 생성하고 설정하는지
+        * SimpleJob
+            - Spring batch 가 제공하는 구현체 중 가장 기본
+            - 속성, 기능, api를 통해 job을 구성하게 되면 job의 설정은 SimpleJob에 저장됨
+        * StepBuilderFactory & StepBuilder
+        * TaskletStep
+        * JobStep
