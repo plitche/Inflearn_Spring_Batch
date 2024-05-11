@@ -1,0 +1,18 @@
+* SimpleJob - 개념 및 API 소개
+	1. 기본 개념
+	    * SimpleJob은 Step을 실행시키는 Job 구현체로서 SimpleJobBuilder에 의해 생성된다.
+	    * 여러 단계의 Step으로 구성할 수 있으며 Step을 순차적으로 실행시킨다
+	    * 모든 Step의 실행이 성공적으로 완료되어야 Job 이 성공적으로 완료 된다.
+	    * 맨 마지막에 실행한 Step의 BatchStatus가 Job의 최종 BatchStatus가 된다.
+
+    2. 예시
+        public Job batchJob() {
+            return jobBuilderFactory.get("batchJob")    // jobBuilder를 생성하는 팩토리, Job의 이름을 매개변수로 받음
+                .start(Step)                            // 처음 실행 할 Step 설정, 최초 한번 설정, 이 메서드를 실행하면 SImpleJobBuilder 반환
+                .next(Step)                             // 다음에 실행 할 Step 설정, 회수는 제한이 없고 모든 next()의 Step이 종료되면 Job이 종료된다.
+                .incrementer(JobParametersIncrementer)  // JobParameter의 값을 자동 증가해주는 JobParametersIncrementer 설정
+                .preventRestart(true)                   // Job의 재시작 가능 여부 설정, 기본값은 true
+                .validator(JobParameterValidator)       // JobParameter를 실행하기 전에 올바른 구성이 되었는지 검증
+                .listener(JobExecutionListener)         // Job 라이프사이클의 특정 시점에 콜백 제공받도록 JobExecutionListener 설정
+                .build();                               // SimpleJob 생성
+        }
