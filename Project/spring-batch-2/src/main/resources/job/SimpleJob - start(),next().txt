@@ -1,0 +1,11 @@
+* SimpleJob - start(),next()
+    public Job batchJob() {
+        return jobBuilderFactory.get("batchJob")
+            .start(Step)                            // 처음 실행 할 Step 설정, 최초 한번 설정, 이 메서드를 실행하면 SImpleJobBuilder 반환
+            .next(Step)                             // 다음에 실행 할 Step 설정, 회수는 제한이 없고 모든 next()의 Step이 종료되면 Job이 종료된다.
+            .incrementer()
+            .preventRestart()
+            .validator()
+            .listener()
+            .build();
+    }
