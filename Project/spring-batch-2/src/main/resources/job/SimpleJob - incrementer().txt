@@ -1,0 +1,17 @@
+* SimpleJob - incrementer()
+	1. 기본 개념
+	    * JobParameters에서 필요한 값을 증가시켜 다음에 사용될 JobParameters 오브젝트를 리턴
+	    * 기존의 JobParameter 변경 없이 Job을 여러 번 실행하고자 할 떄
+	    * RunIdIncrementer 구현체를 지원하며 인터페이스를 직접 구현할 수 있음
+
+	    @Override
+	    public JobParameters getNext(@Nullable JobParameters parameters) {
+	        JobParameters params = (parameters == null ? new JobParameters() : parameters;
+
+	        long id = params.getLong(key, new Long(0)) + 1;
+	        return new JobParameterBuilder(paras).addLong(key, id).toJobParameters();
+	    }
+
+    2. 구조
+        * JobParametersIncrementer
+            : JobParameters getNext(@Nullable JobParameters parameters);
