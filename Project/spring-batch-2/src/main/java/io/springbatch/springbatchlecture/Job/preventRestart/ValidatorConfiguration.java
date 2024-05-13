@@ -1,4 +1,4 @@
-package io.springbatch.springbatchlecture.Job.validator;
+package io.springbatch.springbatchlecture.Job.preventRestart;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -14,25 +14,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-// @Configuration
+@Configuration
 @RequiredArgsConstructor
 public class ValidatorConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    // @Bean
+    @Bean
     public Job job() {
         return this.jobBuilderFactory.get("job1")
                 .start(step1())
                 .next(step2())
-                .next(step3())
-//                .validator(new CustomJobParametersValidator())
-                .validator(new DefaultJobParametersValidator(new String[]{"name", "date"}, new String[]{"count"}))
+                .preventRestart() // job이 실패하더라도 재시작 하면 안되는 경우 사용
                 .build();
     }
 
-    // @Bean
+    @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(new Tasklet() {
@@ -44,26 +42,16 @@ public class ValidatorConfiguration {
                 }).build();
     }
 
-    // @Bean
+    @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
                 .tasklet(new Tasklet() {
                     @Override
                     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step2 was executed");
-                        return RepeatStatus.FINISHED;
-                    }
-                }).build();
-    }
+                        throw new RuntimeException("step2 was filed");
 
-    // @Bean
-    public Step step3() {
-        return stepBuilderFactory.get("step3")
-                .tasklet(new Tasklet() {
-                    @Override
-                    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-                        System.out.println("step3 was executed");
-                        return RepeatStatus.FINISHED;
+                        // System.out.println("step2 was executed");
+                        // return RepeatStatus.FINISHED;
                     }
                 }).build();
     }

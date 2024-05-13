@@ -1,0 +1,10 @@
+* SimpleJob - preventRestart()
+	1. 기본 개념
+	    * Job 의 재 시작 여부를 설정
+	    * 기본 값은 true 이며 false 로 설정 시 "이 Job은 재 시작을 지원하지 않는다" 라는 의미
+	    * Job이 실패해도 재 시작이 안되며 Job을 재 시작하려고 하면 JobRestartException이 발생
+	    * 재 시작과 관련 있는 기능으로 Job을 처음 실행하는 것 과는 아무런 상관 없음
+
+    2. 흐름도
+        * Job의 실행이 처음이 아닌 경우는 Job의 성공/실패와 상관없이 오직 preventRestart 설정 값에 따라서 실행 여부를 판단한다.
+
