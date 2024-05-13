@@ -1,0 +1,8 @@
+* SimpleJob 아키텍처                                                                - StepExecution -> ExecutionContext
+	1. 흐름도                                                                           |
+	    JobLauncher             ->          SimpleJob           ->          loop(Step -> Tasklet...)
+	    (Job을 수행시키는 역할)     |                               |
+	                             |                          - JobListener : Job 실행 전/후 JobExecutionListener 호출(.beforeJob(), .afterJob())
+	                          - JobParameters
+	                          - JobInstance
+	                          - JobExecution -> ExecutionContext
