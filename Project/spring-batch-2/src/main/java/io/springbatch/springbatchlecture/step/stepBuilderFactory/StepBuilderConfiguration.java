@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 
-@Configuration
+// @Configuration
 @RequiredArgsConstructor
 public class StepBuilderConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Bean
+    // @Bean
     public Job batchJob() {
         return this.jobBuilderFactory.get("batchJob")
                 .incrementer(new RunIdIncrementer())
@@ -33,7 +33,7 @@ public class StepBuilderConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet(((stepContribution, chunkContext) -> {
@@ -42,7 +42,7 @@ public class StepBuilderConfiguration {
                 })).build();
     }
 
-    @Bean
+    // @Bean
     public Step step2() {
         return stepBuilderFactory.get("step2")
                 .<String, String>chunk(3)
@@ -67,7 +67,7 @@ public class StepBuilderConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step step3() {
         return stepBuilderFactory.get("step3")
                 .partitioner(step1())
@@ -75,21 +75,21 @@ public class StepBuilderConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step step4() {
         return stepBuilderFactory.get("step4")
                 .job(job())
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step step5() {
         return stepBuilderFactory.get("step5")
                 .flow(flow())
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Job job() {
         return this.jobBuilderFactory.get("job")
                 .start(step1())
@@ -98,7 +98,7 @@ public class StepBuilderConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Flow flow() {
         FlowBuilder<Flow> flowFlowBuilder = new FlowBuilder<>("flow");
         flowFlowBuilder.start(step2()).end();
