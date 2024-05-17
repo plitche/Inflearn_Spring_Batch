@@ -19,14 +19,14 @@ import java.util.List;
 import java.util.Locale;
 
 
-@Configuration
+// @Configuration
 @RequiredArgsConstructor
 public class TaskletStepConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
 
-    @Bean
+    // @Bean
     public Job batchJob() {
         return this.jobBuilderFactory.get("batchJob")
                 // .start(taskStep())
@@ -34,7 +34,7 @@ public class TaskletStepConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step taskStep() {
         return stepBuilderFactory.get("step1")
                 .tasklet(((stepContribution, chunkContext) -> {
@@ -44,7 +44,7 @@ public class TaskletStepConfiguration {
                 .build();
     }
 
-    @Bean
+    // @Bean
     public Step chunkStep() {
         return stepBuilderFactory.get("chunkStep")
                 .<String, String>chunk(10)
