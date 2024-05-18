@@ -1,0 +1,2 @@
+* TaskletStep 아키텍처
+   Job -> Step -> RepeatTemplate -> loop(Tasklet -> Business Login -> exception -> No(RepeatStatus)/Yes(반복문 종료))
